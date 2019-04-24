@@ -6,7 +6,7 @@
 <body>
 Delete user: ${param.id}?
 
-&lform action="/users/${param.id}" method="post">
+<form action="/users/${param.id}" method="post">
 <input type="hidden" name="id" value="${param.id}">
 <input type="hidden" name="_method" value="delete">
 <input type="submit" value="Delete">

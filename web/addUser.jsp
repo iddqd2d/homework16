@@ -4,7 +4,7 @@
     <title>Add new user</title>
 </head>
 <body>
-<form action = "/users" method="post">
+<form action = "users" method="post">
     <input required type="text" name="name" placeholder="Name">
     <input type="submit" value="Add">
 </form>

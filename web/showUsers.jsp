@@ -15,7 +15,6 @@
         <tr>
             <td>${user.getId()}</td>
             <td>${user.getName()}</td>
-            <td>${user.getAge()}</td>
             <td>
                 <form action = "updateUser.jsp" method="post">
                     <input type="hidden" name="id" value="${user.getId()}">

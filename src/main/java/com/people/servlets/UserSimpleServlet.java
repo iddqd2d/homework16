@@ -25,36 +25,35 @@ public class UserSimpleServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<User> users = service.list();
-        req.setAttribute("users", users);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/showUsers.jsp");
-        dispatcher.forward(req, resp);
+        request.setAttribute("users", users);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/showUsers.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String name = req.getParameter("name");
+        String name = request.getParameter("name");
         service.create(new User().setName(name));
-        resp.sendRedirect("/users");
+        response.sendRedirect(request.getRequestURL().toString());
     }
 
     @Override
-    protected void	doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+    protected void	doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
         User user = service.read(id);
-        user.setName(req.getParameter("name"));
+        user.setName(request.getParameter("name"));
         service.update(user);
-        resp.sendRedirect("/users");
+        response.sendRedirect(request.getRequestURL().toString());
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
         service.delete(service.read(id));
-        resp.sendRedirect("/users");
+        response.sendRedirect(request.getRequestURL().toString());
     }
 }
