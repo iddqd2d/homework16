@@ -44,7 +44,7 @@ public class UserSimpleServlet extends HttpServlet {
     @Override
     protected void	doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        User user = service.read(id);
+        User user = service.read(id).orElseGet(User::new);
         user.setName(request.getParameter("name"));
         service.update(user);
         response.sendRedirect(request.getRequestURL().toString());
@@ -53,7 +53,7 @@ public class UserSimpleServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        service.delete(service.read(id));
+        service.delete(service.read(id).orElseGet(User::new));
         response.sendRedirect(request.getRequestURL().toString());
     }
 }
