@@ -7,16 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j
 public class UserService implements Service<User> {
 
-    public User read(int id) {
+    public Optional<User> read(int id) {
         EntityManager entityManager = Persistence.createEntityManagerFactory("JPA").createEntityManager();
-        User User = new User();
+        User user = new User();
         try {
             entityManager.getTransaction().begin();
-            User = entityManager.find(User.class, id);
+            user = entityManager.find(User.class, id);
             entityManager.getTransaction().commit();
             entityManager.close();
         } catch (RuntimeException ex) {
@@ -24,7 +25,7 @@ public class UserService implements Service<User> {
         } finally {
             entityManager.close();
         }
-        return User;
+        return Optional.ofNullable(user);
     }
 
     public void create(User User) {
